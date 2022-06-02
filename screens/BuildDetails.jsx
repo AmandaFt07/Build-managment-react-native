@@ -57,7 +57,6 @@ const BuildDetails = ({route, navigation}) => {
         "Deleted!",
         "",
         [
-     
             { text: "OK"}
         ]
         );

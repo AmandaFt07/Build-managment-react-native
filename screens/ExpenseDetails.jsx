@@ -14,6 +14,9 @@ const ExpensesDetails = ({route, navigation}) => {
     
     const expensesCollection = collection(db, 'expenses')
 
+    const [total, setTotal] = useState(0)
+    
+
     useEffect(()=> {
         const getexpenses =  async() => {
             const data = await getDocs(expensesCollection)
@@ -31,6 +34,17 @@ const ExpensesDetails = ({route, navigation}) => {
 
     }, [expenses])
 
+    function calc (specificExpense){
+
+        // for (var i = 0; i<specificExpense.length; i++ ){
+        //     setTotal(total + 1)
+
+        // }
+        
+        
+    }
+  
+
     const deleteExpense = async(id) => {
         const expense = doc(db, 'expenses', id)
         await deleteDoc(expense)
@@ -42,7 +56,6 @@ const ExpensesDetails = ({route, navigation}) => {
         Alert.alert(
         "Alert Mesage!",
         "Are you sure you want to delete?",
-        console.log(id)
         [
             {
             text: "Cancel",
@@ -65,8 +78,7 @@ const ExpensesDetails = ({route, navigation}) => {
     }
 
     return(
-        
-        
+              
         <ScrollView>
             <View style={styles.header}>
                 <Pressable onPress={()=>navigation.goBack()} style={{marginRight:40}}>
@@ -86,9 +98,8 @@ const ExpensesDetails = ({route, navigation}) => {
                             <View key={index}  style={styles.card}>
 
                                 <View style={{display:'flex', flexDirection:'row', justifyContent:'space-between', marginBottom: 20}}>
-                               
                                     <Pressable  onPress={()=>navigation.navigate("Expenses Edit", {exp})}>
-                                        <Text style={styles.add_text}>Editar</Text>
+                                        <Text style={[styles.add_text, {fontWeight: 'bold', color:"#710096"}]}>Editar</Text>
                                     </Pressable>
 
                                     <Pressable onPress={() => createTwoButtonAlert(exp.id)}>
@@ -96,6 +107,7 @@ const ExpensesDetails = ({route, navigation}) => {
                                     </Pressable>
 
                                 </View>
+                    
 
                                 <View style={styles.infos}>
                                     <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 10}}>Category: </Text>
