@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, StyleSheet, Pressable, ActivityIndicator, Alert } from 'react-native'
+import { View, Text, ScrollView, StyleSheet, Pressable, ActivityIndicator, Alert, RefreshControl } from 'react-native'
 import { AntDesign, Feather } from '@expo/vector-icons'; 
 
 import db from '../firebase.config'
@@ -7,6 +7,7 @@ import db from '../firebase.config'
 import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore'
 
 const ExpensesDetails = ({route, navigation}) => {
+    //house id
     const {id} = route.params
     
     const [expenses, setExpenses] = useState([])
@@ -14,8 +15,7 @@ const ExpensesDetails = ({route, navigation}) => {
     
     const expensesCollection = collection(db, 'expenses')
 
-    const [total, setTotal] = useState(0)
-    
+    const [refreshing, setRefreshing] = useState(false);
 
     useEffect(()=> {
         const getexpenses =  async() => {
@@ -23,27 +23,18 @@ const ExpensesDetails = ({route, navigation}) => {
             setExpenses(data.docs.map((doc) => ( {...doc.data(), id: doc.id } )))   
         }
 
+        getexpenses() 
+
+    }, [])
+
+    useEffect(() => {
         setSpecificExpense([])
         expenses.map((item) => {
             if (id === item.id_house){
                 setSpecificExpense( oldArray => [...oldArray, item])
             }
         })
-
-        getexpenses() 
-
     }, [expenses])
-
-    function calc (specificExpense){
-
-        // for (var i = 0; i<specificExpense.length; i++ ){
-        //     setTotal(total + 1)
-
-        // }
-        
-        
-    }
-  
 
     const deleteExpense = async(id) => {
         const expense = doc(db, 'expenses', id)
@@ -59,7 +50,6 @@ const ExpensesDetails = ({route, navigation}) => {
         [
             {
             text: "Cancel",
-            onPress: () => console.log("Cancel Pressed"),
             style: "cancel"
             },
             { text: "OK", onPress: () => deleteExpense(id) }
@@ -77,9 +67,27 @@ const ExpensesDetails = ({route, navigation}) => {
         );
     }
 
+    const getexpenses =  async() => {
+        const data = await getDocs(expensesCollection)
+        setExpenses(data.docs.map((doc) => ( {...doc.data(), id: doc.id } )))   
+    }
+   
+    const onRefresh = () => {
+        setRefreshing(true);
+        getexpenses() 
+        setRefreshing(false)
+    }
+
     return(
               
-        <ScrollView>
+        <ScrollView
+            refreshControl={
+                <RefreshControl
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+                />
+            }
+        >
             <View style={styles.header}>
                 <Pressable onPress={()=>navigation.goBack()} style={{marginRight:40}}>
                     <AntDesign name="arrowleft" size={24} color="#fff" />
@@ -88,6 +96,11 @@ const ExpensesDetails = ({route, navigation}) => {
             </View>
 
             <View style={{padding:20}}>
+
+                <Pressable onPress={()=>navigation.navigate("Dashboard", {specificExpense})}>
+                    <Text style={[styles.mydash, {fontWeight: "bold"}]}>My Dashboard</Text>
+                </Pressable>
+
                 <Pressable onPress={()=>navigation.navigate("Expenses Add", {id:id})}>
                     <Text style={[styles.add_text, {fontWeight: "bold",}]}>Adicionar</Text>
                 </Pressable>
@@ -107,37 +120,45 @@ const ExpensesDetails = ({route, navigation}) => {
                                     </Pressable>
 
                                 </View>
-                    
 
                                 <View style={styles.infos}>
                                     <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 10}}>Category: </Text>
                                     <Text style={{fontSize: 18}} >{exp.category}</Text>
                                 </View>
 
-                                <View style={styles.infos}>
-                                    <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 10}}>Material: </Text>
-                                    <Text style={{fontSize: 18}} >{exp.title}</Text>
-                                </View>
+                                {
+                                    exp.detail.length > 0 &&
+                                    <View style={styles.infos}>
+                                        <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 10}}>Detail: </Text>
+                                        <Text style={{fontSize: 18}} >{exp.detail}</Text>
+                                    </View>
+                                }
+                                
+                                {
+                                    exp.start.length > 0 &&
+                                    <View style={styles.infos}>
+                                        <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 10}}>Start: </Text>
+                                        <Text style={{fontSize: 18}} key={index}>{exp.start}</Text>
+                                    </View>
+                                }
 
-                                <View style={styles.infos}>
-                                    <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 10}}>Descrição: </Text>
-                                    <Text style={{fontSize: 18}} key={index}>{exp.description}</Text>
-                                </View>
+                                {
+                                    exp.end.length > 0 &&
+                                    <View style={styles.infos}>
+                                        <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 10}}>End: </Text>
+                                        <Text style={{fontSize: 18}} key={index}>{exp.end}</Text>
+                                    </View>
+                                }
 
-                                <View style={styles.infos}>
-                                    <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 10}}>Quantidade: </Text>
-                                    <Text style={{fontSize: 18}} key={index}>{exp.unit}</Text>
-                                </View>
+                                {
+                                    exp.total.length > 0 &&
+                                    <View style={styles.infos}>
+                                        <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 10}}>Total : </Text>
+                                        <Text style={{fontSize: 18}} key={index}>{exp.total} &euro;</Text>
+                                    </View>
+                                }
 
-                                <View style={styles.infos}>
-                                    <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 10}}>Preço unidade: </Text>
-                                    <Text style={{fontSize: 18}} key={index}>{exp.price_unit} &euro;	</Text>
-                                </View>
-
-                                <View style={styles.infos}>
-                                    <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 10}}>Total: </Text>
-                                    <Text style={{fontSize: 18}} key={index}> {exp.unit * exp.price_unit }&euro;	</Text>
-                                </View>
+                           
                             </View>
                         )
                     })
@@ -168,6 +189,19 @@ const styles = StyleSheet.create({
         fontSize: 25,
         textAlign: "center",
         paddingVertical: 10,
+    },
+
+    mydash:{
+        borderRadius: 5,
+        borderWidth: 2,
+        borderColor: "#439aa5",
+        paddingVertical: 15,
+        textAlign: "center",
+        marginBottom: 30,
+        backgroundColor:"#439aa5",
+        color: "#fff",
+        // color: "#439aa5",
+        fontSize: 20,
     },
 
     card:{

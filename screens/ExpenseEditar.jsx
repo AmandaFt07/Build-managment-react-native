@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, Pressable, TextInput , ScrollView, Alert } from
 import { AntDesign } from '@expo/vector-icons'; 
 import SelectDropdown from 'react-native-select-dropdown'
 
+import { TextInputMask } from 'react-native-masked-text'
+
 import db from '../firebase.config'
 import { updateDoc, doc } from 'firebase/firestore'
 
@@ -12,21 +14,21 @@ const Expense = ({route, navigation}) => {
     const categorytype = ["materials", "electrician", "painter", "plumber", "carpenter", "taxes", "others"]
 
     const [category, setCategory] = useState( exp.category )
-    const [material, setMaterial] = useState( exp.title )
-    const [descricao, setDescricao] = useState( exp.description )
-    const [qntdd, setQuantidade] = useState( exp.unit )
-    const [preco, setPreco] = useState( exp.price_unit )
+    const [start, setStart] = React.useState(exp.start)
+    const [end, setEnd] = React.useState(exp.end)
+    const [detail, setDetail] = useState(exp.detail)
+    const [preco, setPreco] = useState(exp.total)
 
 
-    const editExpense = async(category, material, descricao, qntdd, preco, id, id_house) => {
+    const editExpense = async(category, start, end, detail, preco, id, id_house) => {
         const expense = doc(db, 'expenses', id)
 
         await updateDoc(expense, {
             category: category,
-            title: material,
-            description: descricao,
-            unit: qntdd,
-            price_unit: preco,
+            start: start,
+            end: end,
+            detail: detail,
+            total: preco,
             id_house: id_house,
         });
 
@@ -80,44 +82,55 @@ const Expense = ({route, navigation}) => {
                     </View>
 
                     <View style={styles.details}>
-                        <Text style={{fontWeight:'500', fontSize: 18, marginRight: 10}}>Material:</Text>
+                        <Text style={{fontWeight:'500', fontSize: 18, marginRight: 10}}>Detail:</Text>
                         <TextInput 
-                            value={material}
-                            placeholder={exp.title}
-                            onChangeText={setMaterial}
+                            value={detail}
+                            placeholder={exp.detail}
+                            onChangeText={setDetail}
                             style={styles.input}
                         />
                     </View>
 
                     <View style={styles.details}>
-                        <Text style={{fontWeight:'500', fontSize: 18, marginRight: 10}}>Descrição:</Text>
-                        <TextInput 
-                            value={descricao}
-                            placeholder={exp.description}
-                            onChangeText={setDescricao}
+                        <Text style={{fontWeight:'500', fontSize: 18, marginRight: 10}}>Start:</Text>
+                        <TextInputMask
+                            type={'datetime'}
                             style={styles.input}
+                            options={{
+                                format: 'DD/MM/YYYY'
+                            }}
+                            value={start}
+                            onChangeText={setStart}
+                            placeholder={exp.start}
                         />
-                    </View>
-
-                    <View style={styles.details}>
-                        <Text style={{fontWeight:'500', fontSize: 18, marginRight: 10}}>Quantidade:</Text>
-                        <TextInput 
-                            value={qntdd}
-                            placeholder={exp.unit}
-                            onChangeText={setQuantidade}
-                            style={styles.input}
-                        />
+                        
                     </View>  
 
                     <View style={styles.details}>
-                        <Text style={{fontWeight:'500', fontSize: 18, marginRight: 10}}>Preço unidade:</Text>
+                        <Text style={{fontWeight:'500', fontSize: 18, marginRight: 10}}>End:</Text>
+                        
+                        <TextInputMask
+                            type={'datetime'}
+                            style={styles.input}
+                            options={{
+                                format: 'DD/MM/YYYY'
+                            }}
+                            value={end}
+                            onChangeText={setEnd}
+                            placeholder={exp.end}
+                        />
+                        
+                    </View> 
+
+                    <View style={styles.details}>
+                        <Text style={{fontWeight:'500', fontSize: 18, marginRight: 10}}>Preço:</Text>
                         <TextInput 
                             value={preco}
-                            placeholder={exp.price_unit}
+                            placeholder={exp.total}
                             onChangeText={setPreco}
                             style={styles.input}
                         />
-                    </View> 
+                    </View>
 
                     <View style={styles.buttons}>
                         <Pressable 
@@ -129,7 +142,7 @@ const Expense = ({route, navigation}) => {
                     
                         <Pressable
                             style={styles.btn}
-                            onPress={() => editExpense(category, material, descricao, qntdd, preco, exp.id, exp.id_house)}
+                            onPress={() => editExpense(category, start, end, detail, preco, exp.id, exp.id_house)}
                         >
                             <Text style={styles.btn_text}>Save</Text>
                         </Pressable>

@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TextInput, Pressable, Alert } from 
 
 import { LinearGradient } from 'expo-linear-gradient';
 
+import { TextInputMask } from 'react-native-masked-text'
 
 import db from '../firebase.config'
 import { collection, addDoc} from 'firebase/firestore'
@@ -98,22 +99,39 @@ export default function AddHouse({navigation}){
                     
                     <View style={styles.details}>
                         <Text style={{fontWeight:'500', fontSize: 18, marginRight: 10}}>Start:</Text>
-                        <TextInput
-                            value={start}
-                            placeholder='Start date'
-                            onChangeText={setStart}
+                        <TextInputMask
+                            type={'datetime'}
                             style={styles.input}
+                            options={{
+                                format: 'DD/MM/YYYY'
+                            }}
+                            value={start}
+                            onChangeText={setStart}
+                            placeholder='DD/MM/YYYY'
                         />
+                        
                     </View>
 
                     <View style={styles.details}>
                         <Text style={{fontWeight:'500', fontSize: 18, marginRight: 10}}>End:</Text>
-                        <TextInput
+                        
+                        <TextInputMask
+                            type={'datetime'}
+                            style={styles.input}
+                            options={{
+                                format: 'DD/MM/YYYY'
+                            }}
+                            value={end}
+                            onChangeText={setEnd}
+                            placeholder='DD/MM/YYYY'
+                        />
+                        
+                        {/* <TextInput
                             value={end}
                             placeholder='Finish date'
                             onChangeText={setEnd}
                             style={styles.input}
-                        />
+                        /> */}
                     </View>
 
                     <View style={styles.buttons}>

@@ -9,6 +9,10 @@ import ExpensesDetails from '../ExpenseDetails';
 import EditExpense from '../ExpenseEditar';
 import AddExpense from '../ExpenseAdd'
 
+import DashboardScreen from '../Dashboard'
+import MonthScreen from '../dashboard-screens/month'
+import CategoryScreen from '../dashboard-screens/category'
+
 import AddBuild from '../AddBuild'
 
 const Stack = createStackNavigator()
@@ -22,6 +26,11 @@ const MainStackNavigator = () => {
             <Stack.Screen name="Expenses Details" component={ExpensesDetails} options={{headerShown:false}}/>
             <Stack.Screen name="Expenses Edit" component={EditExpense} options={{headerShown:false}}/>
             <Stack.Screen name="Expenses Add" component={AddExpense} options={{headerShown:false}}/> 
+            
+            <Stack.Screen name="Dashboard" component={DashboardScreen} options={{headerShown:false}}/> 
+            <Stack.Screen name="Month" component={MonthScreen} options={{headerShown:false}}/> 
+            <Stack.Screen name="Category" component={CategoryScreen} options={{headerShown:false}}/>
+
         </Stack.Navigator>
     )
 }

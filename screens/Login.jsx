@@ -20,13 +20,11 @@ export default function Login({navigation}){
         // Login
         signInWithEmailAndPassword(getAuth(), email, password)
         .then((res) => {
-            console.log(res);
 
             // Obter documento
             const usersRef = collection(getFirestore(), "users");
             const docRef = doc(usersRef, res.user.email);
             getDoc(docRef).then((res) => {
-            console.log(res.data());
 
             setLoggedUser(res.data());
             });

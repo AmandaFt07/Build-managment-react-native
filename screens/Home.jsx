@@ -1,10 +1,11 @@
 import React , { useState, useEffect } from 'react';
-import { View, Text, Pressable, FlatList, StyleSheet, ActivityIndicator } from 'react-native'
+import { View, Text, Pressable, FlatList, StyleSheet, ActivityIndicator, ScrollView , RefreshControl } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient';
 import { AntDesign } from '@expo/vector-icons'; 
 
 import db from '../firebase.config'
 import { collection, getDocs } from 'firebase/firestore'
+
 
 export default function Home({navigation}){
     const [build, setBuild] = useState([])
@@ -16,10 +17,30 @@ export default function Home({navigation}){
             setBuild(data.docs.map((doc) => ( {...doc.data(), id: doc.id } )))
         }
         gethouses()
-    }, [build])
+    }, [])
+
+    const [refreshing, setRefreshing] = React.useState(false);
+
+    const gethouses =  async() => {
+        const data = await getDocs(housesCollection)
+        setBuild(data.docs.map((doc) => ( {...doc.data(), id: doc.id } )))
+    }
+    
+    const onRefresh = () => {
+      setRefreshing(true);
+      gethouses()
+      setRefreshing(false)
+    }
 
     return(
-        <>
+        <ScrollView
+        refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+            />
+          }
+        >
             <View style={styles.box_title}>
                 <LinearGradient
                     colors={['rgba(0,0,0,0.8)', 'transparent']}
@@ -48,7 +69,7 @@ export default function Home({navigation}){
                     )}
                 />
             }
-        </>
+        </ScrollView>
     )
 }
 

@@ -19,17 +19,21 @@ const BuildDetails = ({route, navigation}) => {
             const data = await getDocs(housesCollection)
             setBuild(data.docs.map((doc) => ( {...doc.data(), id: doc.id } )))   
         }
-        
+   
+        gethouses() 
+       
+    }, [])
+
+    useEffect(() => {
+
         build.map((item) => {
             if (id === item.id){
-                setOnebuild(item)
+                 setOnebuild(item)
             }
         })
-        
-        gethouses() 
-        
-    }, [build])
-
+   
+    
+     }, [build]);
 
     const deleteBuild = async(id) => {
         const build = doc(db, 'houses', id)
@@ -45,7 +49,6 @@ const BuildDetails = ({route, navigation}) => {
         [
             {
             text: "Cancel",
-            onPress: () => console.log("Cancel Pressed"),
             style: "cancel"
             },
             { text: "OK", onPress: () => deleteBuild(id) }
@@ -76,7 +79,7 @@ const BuildDetails = ({route, navigation}) => {
             {
                 onebuild.length === 0? 
 
-                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height:"100%"}}>
                     <ActivityIndicator size="large" color="#710096"/>
                 </View>
 

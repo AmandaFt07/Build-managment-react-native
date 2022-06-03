@@ -1,7 +1,11 @@
 import React, {useState, useEffect} from 'react';
+
 import { View, Text, StyleSheet, Pressable, TextInput , ScrollView, Alert} from 'react-native'
-import { AntDesign } from '@expo/vector-icons'; 
 import SelectDropdown from 'react-native-select-dropdown'
+
+import { AntDesign } from '@expo/vector-icons'; 
+
+import { TextInputMask } from 'react-native-masked-text'
 
 import db from '../firebase.config'
 import { collection, addDoc} from 'firebase/firestore'
@@ -10,9 +14,9 @@ const Expense = ({route, navigation}) => {
     const id = route.params.id
 
     const [ category, setCategory ] = useState("")
-    const [material, setMaterial] = useState("")
-    const [descricao, setDescricao] = useState("")
-    const [qntdd, setQuantidade] = useState("")
+    const [start, setStart] = React.useState("")
+    const [end, setEnd] = React.useState("")
+    const [detail, setDetail] = useState("")
     const [preco, setPreco] = useState("")
 
     const categorytype = ["materials", "electrician", "painter", "plumber", "carpenter", "taxes", "others"]
@@ -23,10 +27,10 @@ const Expense = ({route, navigation}) => {
     const addExpense = async (id) => {
         await addDoc(expenseCollection, {
             category: category,
-            title: material,
-            description: descricao,
-            unit: qntdd,
-            price_unit: preco,
+            start: start,
+            end: end,
+            detail: detail,
+            total: preco,
             id_house: id,
         });
  
@@ -38,7 +42,9 @@ const Expense = ({route, navigation}) => {
         "Done!",
         "A new expense created!",
         [
-            { text: "OK"}
+            { text: "OK",
+           
+        }
         ]
         );
     }
@@ -64,7 +70,6 @@ const Expense = ({route, navigation}) => {
                             buttonStyle={{width:170}}
                             onSelect={(selectedItem, index) => {
                                 setCategory(selectedItem)
-                                console.log(selectedItem, index)
                             }}
                             buttonTextAfterSelection={(selectedItem, index) => {
                                 return selectedItem
@@ -77,34 +82,46 @@ const Expense = ({route, navigation}) => {
                     </View>
 
                     <View style={styles.details}>
-                        <Text style={{fontWeight:'500', fontSize: 18, marginRight: 10}}>Material:</Text>
-                        <TextInput 
-                            value={material}
-                            onChangeText={setMaterial}
+                        <Text style={{fontWeight:'500', fontSize: 18, marginRight: 10}}>Start:</Text>
+                        
+                        <TextInputMask
+                            type={'datetime'}
                             style={styles.input}
+                            options={{
+                                format: 'DD/MM/YYYY'
+                            }}
+                            value={start}
+                            onChangeText={setStart}
+                            placeholder='DD/MM/YYYY'
                         />
                     </View>
 
                     <View style={styles.details}>
-                        <Text style={{fontWeight:'500', fontSize: 18, marginRight: 10}}>Descrição:</Text>
-                        <TextInput 
-                            value={descricao}
-                            onChangeText={setDescricao}
+                        <Text style={{fontWeight:'500', fontSize: 18, marginRight: 10}}>End:</Text>
+                        <TextInputMask
+                            type={'datetime'}
                             style={styles.input}
+                            options={{
+                                format: 'DD/MM/YYYY'
+                            }}
+                            value={end}
+                            onChangeText={setEnd}
+                            placeholder='DD/MM/YYYY'
                         />
-                    </View>
+               
+                    </View> 
 
                     <View style={styles.details}>
-                        <Text style={{fontWeight:'500', fontSize: 18, marginRight: 10}}>Quantidade:</Text>
+                        <Text style={{fontWeight:'500', fontSize: 18, marginRight: 10}}>Detail:</Text>
                         <TextInput 
-                            value={qntdd}
-                            onChangeText={setQuantidade}
+                            value={detail}
+                            onChangeText={setDetail}
                             style={styles.input}
                         />
-                    </View>  
+                    </View> 
 
                     <View style={styles.details}>
-                        <Text style={{fontWeight:'500', fontSize: 18, marginRight: 10}}>Preço unidade:</Text>
+                        <Text style={{fontWeight:'500', fontSize: 18, marginRight: 10}}>Total €:</Text>
                         <TextInput 
                             value={preco}
                             onChangeText={setPreco}
