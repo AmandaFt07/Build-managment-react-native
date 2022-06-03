@@ -4,6 +4,8 @@ import { Text, ScrollView, View, Pressable, StyleSheet, RefreshControl } from 'r
 
 import { AntDesign } from '@expo/vector-icons'; 
 
+import { BarChart, Grid } from 'react-native-svg-charts'
+
 
 export default function Month({navigation, route}){
     const {specificExpense} = route.params
@@ -36,6 +38,9 @@ export default function Month({navigation, route}){
     const [Averagenov, setAverageNov] = useState(0)
     const [Averagedec, setAverageDec] = useState(0)
 
+    const fill = 'rgb(134, 65, 244)'
+    const data = [jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec]
+ 
     useEffect(() => {
         
        getData()
@@ -165,14 +170,14 @@ export default function Month({navigation, route}){
         {fevereiro == 0? setAverageFeb(fevereiro) : setAverageFeb(fevereiro/countfevereiro)}
         {marco == 0? setAverageMar(marco) : setAverageMar(marco/ countmarco)}
         {abril == 0? setAverageApr(abril) : setAverageApr(abril/ countabril)}
-        {maio == 0? setAverageMar(maio) : setAverageMar(maio/ countmaio)}
+        {maio == 0? setAverageMay(maio) : setAverageMay(maio/ countmaio)}
         {junho == 0? setAverageJun(junho) : setAverageJun(junho/ countjunho)}
         {julho == 0? setAverageJul(julho) : setAverageJul(julho/ countjulho)}
-        {agosto == 0? setAverageMar(agosto) : setAverageMar(agosto/ countagosto)}
-        {setembro == 0? setAverageMar(setembro) : setAverageMar(setembro/ countsetembro)}
-        {outubro == 0? setAverageMar(outubro) : setAverageMar(outubro/ countoutubro)}
-        {nov == 0? setAverageMar(novembro) : setAverageMar(novembro/ countnov)}
-        {dezembro == 0? setDec(dezembro) : setDec(dezembro/ countdezembro)}
+        {agosto == 0? setAverageAug(agosto) : setAverageAug(agosto/ countagosto)}
+        {setembro == 0? setAverageSep(setembro) : setAverageSep(setembro/ countsetembro)}
+        {outubro == 0? setAverageOct(outubro) : setAverageOct(outubro/ countoutubro)}
+        {novembro == 0? setAverageNov(novembro) : setAverageNov(novembro/ countnov)}
+        {dezembro == 0? setAverageDec(dezembro) : setAverageDec(dezembro/ countdezembro)}
         
     }
 
@@ -325,6 +330,14 @@ export default function Month({navigation, route}){
                     <Text style={[styles.greenfield, styles.field]}>{Averagedec} €</Text>
                 </View>
             </View>
+
+            <BarChart 
+                style={{ height: 200 }} 
+                data={data} 
+                svg={{ fill }} 
+                contentInset={{ top: 30, bottom: 30 }}>
+                <Grid />
+            </BarChart>
         </ScrollView>
     )
 }
