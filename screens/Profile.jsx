@@ -3,9 +3,10 @@ import { View, Text, StyleSheet, Pressable, TextInput , ScrollView, Image} from 
 import UserContext from "../UserContext";
 
 
-const Profile = () => {
+const Profile = ({navigation}) => {
     const [loggedUser, setLoggedUser] = useContext(UserContext);
-    const { name, image, email, bio } = loggedUser;
+    const { name, email, bio , id} = loggedUser;
+
 
     return(
         <ScrollView style={{flex: 1, backgroundColor: "#ebebeb" }}>
@@ -32,6 +33,7 @@ const Profile = () => {
                     <View style={styles.buttons}>
                         <Pressable
                             style={styles.btn}
+                            onPress={()=> navigation.navigate("Edit Profile", {name, email, bio, id})}
                         >
                             <Text style={styles.btn_text}>Update</Text>
                         </Pressable>

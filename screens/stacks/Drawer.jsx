@@ -5,6 +5,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import CustomDrawer from '../CustomDrawer'
 
 import NavTab from '../stacks/Tabs'
+import { ProfileNavigator } from './Stacks';
 import Profile from '../Profile'
 
 const Drawer = createDrawerNavigator();
@@ -31,7 +32,7 @@ export default function DrawerNavigator(){
 
             <Drawer.Screen
                 name="Profile"
-                component={Profile}
+                component={ProfileNavigator}
             />
         </Drawer.Navigator>
         

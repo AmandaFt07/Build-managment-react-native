@@ -15,6 +15,9 @@ import CategoryScreen from '../dashboard-screens/category'
 
 import AddBuild from '../AddBuild'
 
+import Profile from '../Profile'
+import EditProfile from '../EditProfile'
+
 const Stack = createStackNavigator()
 
 const MainStackNavigator = () => {
@@ -43,4 +46,13 @@ const AddStackNavigator = () => {
     )
 }
 
-export { MainStackNavigator , AddStackNavigator }
+const ProfileNavigator = () => {
+    return(
+        <Stack.Navigator>
+            <Stack.Screen name="Profile Stack" component={Profile} options={{headerShown:false}}/>
+            <Stack.Screen name="Edit Profile" component={EditProfile} options={{headerShown:false}}/>
+        </Stack.Navigator>
+    )
+}
+
+export { MainStackNavigator , AddStackNavigator, ProfileNavigator }
