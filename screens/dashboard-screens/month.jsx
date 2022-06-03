@@ -196,133 +196,133 @@ export default function Month({navigation, route}){
                 <Pressable onPress={()=>navigation.goBack()} style={{marginRight:40}}>
                     <AntDesign name="arrowleft" size={24} color="#fff" />
                 </Pressable>
-                <Text style={styles.title}>Cost per month</Text>
             </View>
 
             <View style={{display:"flex", flexDirection:"column", paddingHorizontal:20, paddingVertical:30}}>
+                <Text style = {[styles.purple, styles.field, styles.campo ,{width: "100%"}]}>Cost per month</Text>
                 
                 <View style={styles.row}>
-                    <Text style={[styles.purple, styles.field]}>January</Text>
+                    <Text style={[styles.purple, styles.campo, styles.field]}>January</Text>
                     <Text style={[styles.white, styles.field]}>{jan} €	</Text>
                 </View>
 
                 <View style={styles.row}>
-                    <Text style={[styles.purple, styles.field]}>February</Text>
+                    <Text style={[styles.purple, styles.campo, styles.field]}>February</Text>
                     <Text style={[styles.white, styles.field]}>{feb} €</Text>
                 </View>
 
                 <View style={styles.row}>
-                    <Text style={[styles.purple, styles.field]}>March</Text>
+                    <Text style={[styles.purple, styles.campo, styles.field]}>March</Text>
                     <Text style={[styles.white, styles.field]}>{mar} €</Text>
                 </View>
 
                 <View style={styles.row}>
-                    <Text style={[styles.purple, styles.field]}>April</Text>
+                    <Text style={[styles.purple, styles.campo, styles.field]}>April</Text>
                     <Text style={[styles.white, styles.field]}>{apr} €</Text>
                 </View>
 
                 <View  style={styles.row}>
-                    <Text style={[styles.purple, styles.field]}>May</Text>
+                    <Text style={[styles.purple, styles.campo, styles.field]}>May</Text>
                     <Text style={[styles.white, styles.field]}>{may} €</Text>
                 </View>
 
                 <View  style={styles.row}>
-                    <Text style={[styles.purple, styles.field]}>June</Text>
+                    <Text style={[styles.purple, styles.campo, styles.field]}>June</Text>
                     <Text style={[styles.white, styles.field]}>{jun} €</Text>
                 </View>
 
                 <View  style={styles.row}>
-                    <Text style={[styles.purple, styles.field]}>July</Text>
+                    <Text style={[styles.purple, styles.campo, styles.field]}>July</Text>
                     <Text style={[styles.white, styles.field]}>{jul} €</Text>
                 </View>
 
                 <View  style={styles.row}>
-                    <Text style={[styles.purple, styles.field]}>August</Text>
+                    <Text style={[styles.purple, styles.campo, styles.field]}>August</Text>
                     <Text style={[styles.white, styles.field]}>{aug} €</Text>
                 </View>
 
                 <View  style={styles.row}>
-                    <Text style={[styles.purple, styles.field]}>September</Text>
+                    <Text style={[styles.purple, styles.campo, styles.field]}>September</Text>
                     <Text style={[styles.white, styles.field]}>{sep} €</Text>
                 </View>
 
                 <View  style={styles.row}>
-                    <Text style={[styles.purple, styles.field]}>October</Text>
+                    <Text style={[styles.purple, styles.campo, styles.field]}>October</Text>
                     <Text style={[styles.white, styles.field]}>{oct} €</Text>
                 </View>
 
                 <View  style={styles.row}>
-                    <Text style={[styles.purple, styles.field]}>November</Text>
+                    <Text style={[styles.purple, styles.campo, styles.field]}>November</Text>
                     <Text style={[styles.white, styles.field]}>{nov} €</Text>
                 </View>
 
                 <View  style={styles.row}>
-                    <Text style={[styles.purple, styles.field]}>December</Text>
+                    <Text style={[styles.purple, styles.campo, styles.field]}>December</Text>
                     <Text style={[styles.white, styles.field]}>{dec} €</Text>
                 </View>
             </View>
 
             <View style={{display:"flex", flexDirection:"column", paddingHorizontal:20, paddingVertical:30}}>
-                <Text>Média</Text>
+                <Text style = {[styles.green, styles.field, styles.campo ,{width: "100%"}]}>Average</Text>
                 
                 <View style={styles.row}>
-                    <Text style={[styles.purple, styles.field]}>January</Text>
-                    <Text style={[styles.white, styles.field]}>{Averagejan} €	</Text>
+                    <Text style={[styles.green, styles.campo, styles.field]}>January</Text>
+                    <Text style={[styles.greenfield, styles.field]}>{Averagejan} €	</Text>
                 </View>
 
                 <View style={styles.row}>
-                    <Text style={[styles.purple, styles.field]}>February</Text>
-                    <Text style={[styles.white, styles.field]}>{Averagefeb} €</Text>
+                    <Text style={[styles.green, styles.campo, styles.field]}>February</Text>
+                    <Text style={[styles.greenfield, styles.field]}>{Averagefeb} €</Text>
                 </View>
 
                 <View style={styles.row}>
-                    <Text style={[styles.purple, styles.field]}>March</Text>
-                    <Text style={[styles.white, styles.field]}>{Averagemar} €</Text>
+                    <Text style={[styles.green, styles.campo, styles.field]}>March</Text>
+                    <Text style={[styles.greenfield, styles.field]}>{Averagemar} €</Text>
                 </View>
 
                 <View style={styles.row}>
-                    <Text style={[styles.purple, styles.field]}>April</Text>
-                    <Text style={[styles.white, styles.field]}>{Averageapr} €</Text>
+                    <Text style={[styles.green, styles.campo, styles.field]}>April</Text>
+                    <Text style={[styles.greenfield, styles.field]}>{Averageapr} €</Text>
                 </View>
 
                 <View  style={styles.row}>
-                    <Text style={[styles.purple, styles.field]}>May</Text>
-                    <Text style={[styles.white, styles.field]}>{Averagemay} €</Text>
+                    <Text style={[styles.green, styles.campo, styles.field]}>May</Text>
+                    <Text style={[styles.greenfield, styles.field]}>{Averagemay} €</Text>
                 </View>
 
                 <View  style={styles.row}>
-                    <Text style={[styles.purple, styles.field]}>June</Text>
-                    <Text style={[styles.white, styles.field]}>{Averagejun} €</Text>
+                    <Text style={[styles.green, styles.campo, styles.field]}>June</Text>
+                    <Text style={[styles.greenfield, styles.field]}>{Averagejun} €</Text>
                 </View>
 
                 <View  style={styles.row}>
-                    <Text style={[styles.purple, styles.field]}>July</Text>
-                    <Text style={[styles.white, styles.field]}>{Averagejul} €</Text>
+                    <Text style={[styles.green, styles.campo, styles.field]}>July</Text>
+                    <Text style={[styles.greenfield, styles.field]}>{Averagejul} €</Text>
                 </View>
 
                 <View  style={styles.row}>
-                    <Text style={[styles.purple, styles.field]}>August</Text>
-                    <Text style={[styles.white, styles.field]}>{Averageaug} €</Text>
+                    <Text style={[styles.green, styles.campo, styles.field]}>August</Text>
+                    <Text style={[styles.greenfield, styles.field]}>{Averageaug} €</Text>
                 </View>
 
                 <View  style={styles.row}>
-                    <Text style={[styles.purple, styles.field]}>September</Text>
-                    <Text style={[styles.white, styles.field]}>{Averagesep} €</Text>
+                    <Text style={[styles.green, styles.campo, styles.field]}>September</Text>
+                    <Text style={[styles.greenfield, styles.field]}>{Averagesep} €</Text>
                 </View>
 
                 <View  style={styles.row}>
-                    <Text style={[styles.purple, styles.field]}>October</Text>
-                    <Text style={[styles.white, styles.field]}>{Averageoct} €</Text>
+                    <Text style={[styles.green, styles.campo, styles.field]}>October</Text>
+                    <Text style={[styles.greenfield, styles.field]}>{Averageoct} €</Text>
                 </View>
 
                 <View  style={styles.row}>
-                    <Text style={[styles.purple, styles.field]}>November</Text>
-                    <Text style={[styles.white, styles.field]}>{Averagenov} €</Text>
+                    <Text style={[styles.green, styles.campo, styles.field]}>November</Text>
+                    <Text style={[styles.greenfield, styles.field]}>{Averagenov} €</Text>
                 </View>
 
                 <View  style={styles.row}>
-                    <Text style={[styles.purple, styles.field]}>December</Text>
-                    <Text style={[styles.white, styles.field]}>{Averagedec} €</Text>
+                    <Text style={[styles.green, styles.campo, styles.field]}>December</Text>
+                    <Text style={[styles.greenfield, styles.field]}>{Averagedec} €</Text>
                 </View>
             </View>
         </ScrollView>
@@ -351,8 +351,15 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
 
+    green:{
+        backgroundColor: "#5ea9bc"
+    },
+
     purple:{
         backgroundColor:"#710096",
+    },
+
+    campo:{
         color: "#fff",  
         fontWeight: "bold",  
         borderBottomColor: "#fff",
@@ -370,5 +377,11 @@ const styles = StyleSheet.create({
         color: "#710096",
         borderWidth: 1,
         borderColor: "#710096",
+    },
+
+    greenfield:{
+        color: "#5ea9bc",
+        borderWidth: 1,
+        borderColor: "#5ea9bc",
     }
 })
